@@ -1,24 +1,25 @@
 require 'pry'
 
 def sort_array_asc(array)
-  array.sort
-end
-
-def sort_array_desc(array)
-  array.sort do | left, right|
-    right <=> left
+  array.sort do |a, b|
+    a <=> b
   end
 end
 
-def sort_array_char_count(array)
-  array.sort do |left, right|
-    left.length <=> right.length
+def sort_array_desc(array)
+  array.sort do |a, b|
+    b <=> a
+  end
+end
+
+def sort_array_char_count(array) #stuck
+  array.sort do |wordone, wordtwo|
+    wordone.length <=> wordtwo.length
   end
 end
 
 def swap_elements(array)
-  array[1], array[2] = array[2], array[1]
-  array
+    array[0], array[1], array[2] = array[0], array[2], array[1]
 end
 
 def reverse_array(array)
@@ -26,13 +27,13 @@ def reverse_array(array)
 end
 
 def kesha_maker(array)
-  array.each do |item|
-    item[2] = "$"
+  array.each do |word|
+    word[2] = "$"
   end
 end
 
-def find_a(array)
-  array.find_all do |word|
+def find_a(array) #stuck
+  array.select do |word|
     word[0] == "a"
   end
 
@@ -43,11 +44,7 @@ def find_a(array)
 end
 
 def sum_array(array)
-  sum = 0
-  array.each do |num|
-    sum+=num
-  end
-  sum
+  array.inject(0) { |sum, x| sum += x }
 
   # using reduce method
     # array.reduce(:+)
@@ -62,11 +59,17 @@ def sum_array(array)
 end
 
 def add_s(array)
-  array.collect do |word|
-    if array[1] == word
-      word
-    else
-      word + "s"
+  i = 0
+  word = []
+  while i < array.length
+    if i == 1
+      word.push(array[i])
+      i += 1
+    elsif i == 0 || i > 1
+      array[i] << "s"
+      word.push(array[i])
+      i += 1
     end
   end
+  word
 end
